@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--6.5start 规范颜色-->
+    <color name="standard_C1">#0A8CDD</color>
+    <color name="standard_C2">#FF9600</color>
+    <color name="standard_C3">#889AAC</color>
+    <color name="standard_C4">#333333</color>
+    <color name="standard_C5">#555555</color>
+    <color name="standard_C6">#999999</color>
+    <color name="standard_C7">#BBBBBB</color>
+    <color name="standard_C8">#F0F0F0</color>
+    <color name="standard_C9">#FAFAFA</color>
+    <color name="standard_C10">#FF4747</color>
+
+    <color name="white">#FFFFFFFF</color>
 </resources>
