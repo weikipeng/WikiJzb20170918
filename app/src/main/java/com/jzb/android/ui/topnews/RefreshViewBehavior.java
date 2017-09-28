@@ -60,19 +60,37 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
                         + "\nchild.getTop():" + child.getTop()
         );
 
-//        if (dy != 0 && !mSkipNestedPreScroll) {
-//            int min, max;
-//            if (dy < 0) {
-//                // We're scrolling down
-//                min = -child.getTotalScrollRange();
-//                max = min + child.getDownNestedPreScrollRange();
-//            } else {
-//                // We're scrolling up
-//                min = -child.getUpNestedPreScrollRange();
-//                max = 0;
-//            }
-//            consumed[1] = scroll(coordinatorLayout, child, dy, min, max);
-//        }
+        if (dy > 0) {
+            // We're scrolling up 向上滑动
+            ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+            int                    height       = child.getHeight();
+            if (height > 0) {
+                layoutParams.height = height - dy;
+                if (layoutParams.height <= 0) {
+                    layoutParams.height = 0;
+                }
+                coordinatorLayout.updateViewLayout(child, layoutParams);
+                if (height > dy) {
+                    consumed[1] = dy;
+                } else {
+                    consumed[1] = height;
+                }
+            }
+        }
+
+        //        if (dy != 0 && !mSkipNestedPreScroll) {
+        //            int min, max;
+        //            if (dy < 0) {
+        //                // We're scrolling down
+        //                min = -child.getTotalScrollRange();
+        //                max = min + child.getDownNestedPreScrollRange();
+        //            } else {
+        //                // We're scrolling up
+        //                min = -child.getUpNestedPreScrollRange();
+        //                max = 0;
+        //            }
+        //            consumed[1] = scroll(coordinatorLayout, child, dy, min, max);
+        //        }
         //        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
     }
 
@@ -98,36 +116,34 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
                         + "\ndyUnconsumed:" + dyUnconsumed
                         + "\ntype:" + type
                         + "\nchild.getTop():" + child.getTop()
+                        + "\nchild.getHeight():" + child.getHeight()
         );
 
-        //        && Math.abs(dyConsumed) <= maxHeight
-        //&& child.getTop() <= 0
+        int height = child.getHeight();
+
         //说明是下拉刷新
         if (dyUnconsumed < 0) {
             DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
                     "onNestedScroll >>>>>>>>>>>>>>>>>>> show refreshView"
             );
-            //            child.offsetTopAndBottom(-dyConsumed);
-            //            ViewCompat.offsetTopAndBottom(child,dyConsumed);
-
+            if (height < maxHeight) {
+                ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+                layoutParams.height = height - dyUnconsumed;
+                if (layoutParams.height > maxHeight) {
+                    layoutParams.height = maxHeight;
+                }
+                coordinatorLayout.updateViewLayout(child, layoutParams);
+            }
+        } else {
             ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
 
-            layoutParams.height += 10;
-            coordinatorLayout.updateViewLayout(child, layoutParams);
-
-            //            coordinatorLayout.requestLayout();
-            //            coordinatorLayout.dispatchDependentViewsChanged(child);
-
-
-            //            ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
-            //            if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
-            //                ((ViewGroup.MarginLayoutParams) layoutParams).topMargin += (-dyConsumed);
-            //            }
-        }else{
-            ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
-
-            layoutParams.height -= 10;
-            coordinatorLayout.updateViewLayout(child, layoutParams);
+            if (height > 0) {
+                layoutParams.height = height - dyUnconsumed;
+                if (layoutParams.height <= 0) {
+                    layoutParams.height = 0;
+                }
+                coordinatorLayout.updateViewLayout(child, layoutParams);
+            }
         }
 
         //        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);

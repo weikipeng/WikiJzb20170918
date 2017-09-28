@@ -2,7 +2,6 @@ package com.jzb.android.ui.topnews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
@@ -41,26 +40,26 @@ public class WebViewBehavior<V extends View> extends CoordinatorLayout.Behavior<
         return true;
     }
 
-    @Override
-    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child
-            , @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
-        //这里返回true，才会接受到后续滑动事件。
-        return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type);
-    }
-
-    @Override
-    public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target
-            , int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        //进行滑动事件处理
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
-    }
-
-    @Override
-    public boolean onNestedFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target
-            , float velocityX, float velocityY, boolean consumed) {
-        //当进行快速滑动
-        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
-    }
+//    @Override
+//    public boolean onStartNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child
+//            , @NonNull View directTargetChild, @NonNull View target, int axes, int type) {
+//        //这里返回true，才会接受到后续滑动事件。
+//        return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type);
+//    }
+//
+//    @Override
+//    public void onNestedScroll(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target
+//            , int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+//        //进行滑动事件处理
+//        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
+//    }
+//
+//    @Override
+//    public boolean onNestedFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target
+//            , float velocityX, float velocityY, boolean consumed) {
+//        //当进行快速滑动
+//        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+//    }
 
 
     //    @Override
