@@ -127,22 +127,29 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
                     "onNestedScroll >>>>>>>>>>>>>>>>>>> show refreshView"
             );
             if (height < maxHeight) {
+
+                int minus = Math.min(-dyUnconsumed, maxHeight);
+
                 ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
-                layoutParams.height = height - dyUnconsumed;
+                layoutParams.height = height + minus;
                 if (layoutParams.height > maxHeight) {
                     layoutParams.height = maxHeight;
                 }
-                coordinatorLayout.updateViewLayout(child, layoutParams);
+//                coordinatorLayout.updateViewLayout(child, layoutParams);
+                child.requestLayout();
             }
         } else {
             ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
 
+            int minus = Math.min(dyUnconsumed, height);
+
             if (height > 0) {
-                layoutParams.height = height - dyUnconsumed;
+                layoutParams.height = height - minus;
                 if (layoutParams.height <= 0) {
                     layoutParams.height = 0;
                 }
-                coordinatorLayout.updateViewLayout(child, layoutParams);
+//                coordinatorLayout.updateViewLayout(child, layoutParams);
+                child.requestLayout();
             }
         }
 
@@ -152,7 +159,37 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
     @Override
     public boolean onNestedFling(@NonNull CoordinatorLayout coordinatorLayout, @NonNull V child, @NonNull View target
             , float velocityX, float velocityY, boolean consumed) {
+        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+                "<<<<<<<<< onNestedFling coordinatorLayout:" + coordinatorLayout
+                        + "\nchild:" + child
+                        + "\ntarget:" + target
+                        + "\nvelocityX:" + velocityX
+                        + "\nvelocityY:" + velocityY
+                        + "\nconsumed:" + consumed
+                        + "\nchild.getTop():" + child.getTop()
+                        + "\nchild.getHeight():" + child.getHeight()
+        );
         //当进行快速滑动
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
+    }
+
+    @Override
+    public boolean onLayoutChild(CoordinatorLayout parent, V child, int layoutDirection) {
+        ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+                "onLayoutChild -----child:" + child
+                        + "\nchild.getTop():" + child.getTop()
+                        + "\nchild.getHeight():" + child.getHeight()
+                        + "\nlayoutDirection:" + layoutDirection
+                        + "\nlayoutParams Height:" + layoutParams.height
+        );
+        parent.dispatchDependentViewsChanged(child);
+        return super.onLayoutChild(parent, child, layoutDirection);
+    }
+
+    @Override
+    public boolean onMeasureChild(CoordinatorLayout parent, V child, int parentWidthMeasureSpec, int widthUsed
+            , int parentHeightMeasureSpec, int heightUsed) {
+        return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
     }
 }
