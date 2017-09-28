@@ -14,7 +14,9 @@
             android:id="@+id/refreshView"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#66FF0000">
+            android:background="#66FF0000"
+            app:layout_behavior="com.jzb.android.ui.topnews.RefreshViewBehavior">
+            <!--android:layout_marginTop="-40dp"-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -34,17 +36,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/loadMoreView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#6600FF00">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/loadMoreView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="#6600FF00">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="上拉加载更多"/>
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="上拉加载更多"/>-->
+        <!--</LinearLayout>-->
     </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>
