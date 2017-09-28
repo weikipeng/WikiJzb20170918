@@ -1,4 +1,4 @@
-package com.jzb.android.ui.topnews;
+package com.jzb.android.widget;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;

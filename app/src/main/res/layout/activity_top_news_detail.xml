@@ -16,7 +16,7 @@
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="com.jzb.android.ui.topnews.WebViewBehavior"
+            app:layout_behavior="com.jzb.android.widget.WebViewBehavior"
             app:target="@+id/refreshView"/>
 
         <android.support.v7.widget.RecyclerView

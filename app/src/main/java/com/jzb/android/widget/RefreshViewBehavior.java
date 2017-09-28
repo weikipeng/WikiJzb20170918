@@ -1,21 +1,25 @@
-package com.jzb.android.ui.topnews;
+package com.jzb.android.widget;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import com.eduu.bang.BangApplication;
+import com.jzb.android.support.design.widget.HeaderBehavior;
 import com.weiauto.develop.tool.DevLogTool;
 
 /**
  * Created by wikipeng on 2017/9/28.
  */
-public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
+public class RefreshViewBehavior<V extends View> extends HeaderBehavior<V> {
     protected int     maxHeight;
     private   boolean mSkipNestedPreScroll;
 
@@ -135,7 +139,7 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
                 if (layoutParams.height > maxHeight) {
                     layoutParams.height = maxHeight;
                 }
-//                coordinatorLayout.updateViewLayout(child, layoutParams);
+                //                coordinatorLayout.updateViewLayout(child, layoutParams);
                 child.requestLayout();
             }
         } else {
@@ -148,7 +152,7 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
                 if (layoutParams.height <= 0) {
                     layoutParams.height = 0;
                 }
-//                coordinatorLayout.updateViewLayout(child, layoutParams);
+                //                coordinatorLayout.updateViewLayout(child, layoutParams);
                 child.requestLayout();
             }
         }
@@ -191,5 +195,45 @@ public class RefreshViewBehavior<V extends View> extends CoordinatorLayout.Behav
     public boolean onMeasureChild(CoordinatorLayout parent, V child, int parentWidthMeasureSpec, int widthUsed
             , int parentHeightMeasureSpec, int heightUsed) {
         return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    ///////////////////////////////////////////////////////////////////////////
+    private ValueAnimator mOffsetAnimator;
+    private static final int MAX_OFFSET_ANIMATION_DURATION = 600; // ms
+    private int mOffsetDelta;
+
+    private void animateOffsetWithDuration(final CoordinatorLayout coordinatorLayout,
+                                           final AppBarLayout child, final int offset, final int duration) {
+        final int currentOffset = getTopBottomOffsetForScrollingSibling();
+        if (currentOffset == offset) {
+            if (mOffsetAnimator != null && mOffsetAnimator.isRunning()) {
+                mOffsetAnimator.cancel();
+            }
+            return;
+        }
+
+        if (mOffsetAnimator == null) {
+            mOffsetAnimator = new ValueAnimator();
+            mOffsetAnimator.setInterpolator(new DecelerateInterpolator());
+            mOffsetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animator) {
+                    int value = (int) animator.getAnimatedValue();
+                    setHeaderTopBottomOffset(coordinatorLayout, (V) child,value);
+                }
+            });
+        } else {
+            mOffsetAnimator.cancel();
+        }
+
+        mOffsetAnimator.setDuration(Math.min(duration, MAX_OFFSET_ANIMATION_DURATION));
+        mOffsetAnimator.setIntValues(currentOffset, offset);
+        mOffsetAnimator.start();
+    }
+
+    int getTopBottomOffsetForScrollingSibling() {
+        return getTopAndBottomOffset() + mOffsetDelta;
     }
 }
