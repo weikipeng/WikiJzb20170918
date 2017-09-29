@@ -38,15 +38,11 @@ import com.weiauto.develop.tool.DevLogTool;
  */
 public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<V> {
 
-    private static final int INVALID_POINTER = -1;
-
     private Runnable mFlingRunnable;
     ScrollerCompat mScroller;
 
     private boolean mIsBeingDragged;
-    private int mActivePointerId = INVALID_POINTER;
     private int mLastMotionY;
-    private int mTouchSlop = -1;
     private VelocityTracker mVelocityTracker;
 
     public HeaderBehavior() {

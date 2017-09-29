@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 
 import com.eduu.bang.R;
+import com.jzb.android.widget.NestedWebView;
 
 /**
  * Created by wikipeng on 2017/9/28.

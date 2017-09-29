@@ -2,13 +2,15 @@ package com.jzb.android.support.design.widget;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
  * Behavior will automatically sets up a {@link ViewOffsetHelper} on a {@link View}.
  */
-public class ViewOffsetBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
+public class ViewOffsetBehavior<V extends View> extends BaseBehavior<V> {
 
     private ViewOffsetHelper mViewOffsetHelper;
 
@@ -72,5 +74,13 @@ public class ViewOffsetBehavior<V extends View> extends CoordinatorLayout.Behavi
 
     public int getLeftAndRightOffset() {
         return mViewOffsetHelper != null ? mViewOffsetHelper.getLeftAndRightOffset() : 0;
+    }
+
+    public float getMotionEventY(MotionEvent ev, int activePointerId) {
+        final int index = MotionEventCompat.findPointerIndex(ev, activePointerId);
+        if (index < 0) {
+            return -1;
+        }
+        return MotionEventCompat.getY(ev, index);
     }
 }
