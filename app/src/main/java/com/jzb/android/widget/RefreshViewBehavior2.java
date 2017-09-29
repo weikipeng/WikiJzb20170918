@@ -238,6 +238,14 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                 );
                 if (overScrollTop > mTotalDragDistance) {
                     setRefreshing(true, true);
+                    if (mRefreshView != null) {
+                        mRefreshView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setRefreshing(false, true);
+                            }
+                        }, 3000);
+                    }
                 } else {
                     mRefreshing = false;
                     animateOffsetToPosition(mAnimateToStartPosition);
