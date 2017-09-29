@@ -29,6 +29,9 @@ public class DevLogTool {
         return sDevLogTool;
     }
 
+    public synchronized void closeLog(String log) {
+
+    }
     public synchronized void saveLog(String log) {
         String fullClassName = Thread.currentThread().getStackTrace()[3].getClassName();
         String className     = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);

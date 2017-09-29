@@ -52,8 +52,8 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
 
         float density = context.getResources().getDisplayMetrics().density;
         mTotalDragDistance = Math.round((float) DRAG_MAX_DISTANCE * density);
-//        DevLogTool.getInstance(context).saveLog("手机设备密度density:" + density
-//                + "\n可以拖动的距离：" + mTotalDragDistance);
+        //        DevLogTool.getInstance(context).saveLog("手机设备密度density:" + density
+        //                + "\n可以拖动的距离：" + mTotalDragDistance);
     }
 
     @Override
@@ -65,13 +65,13 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
 
         boolean isIntercept = false;
 
-//        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
-//                " onInterceptTouchEvent coordinatorLayout:" + parent
-//                        + "\nchild:" + child
-//                        + "\ntouch child:" + mTarget
-//                        + "\nchild.getScrollY():" + child.getScrollY()
-//                        + "\nev:" + ev.toString()
-//        );
+        //        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+        //                " onInterceptTouchEvent coordinatorLayout:" + parent
+        //                        + "\nchild:" + child
+        //                        + "\ntouch child:" + mTarget
+        //                        + "\nchild.getScrollY():" + child.getScrollY()
+        //                        + "\nev:" + ev.toString()
+        //        );
 
         boolean isEnabled        = child.isEnabled();
         boolean canChildScrollUp = false;
@@ -98,11 +98,11 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                     mActivePointerId = ev.getPointerId(0);
                     mIsBeingDragged = false;
                     final float initialMotionY = getMotionEventY(ev, mActivePointerId);
-//                    DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
-//                            "-----onInterceptTouchEvent MotionEvent.ACTION_DOWN"
-//                                    + "\n当前活动的按下点ID mActivePointerId :" + mActivePointerId
-//                                    + "\ninitialMotionY:" + initialMotionY
-//                    );
+                    //                    DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+                    //                            "-----onInterceptTouchEvent MotionEvent.ACTION_DOWN"
+                    //                                    + "\n当前活动的按下点ID mActivePointerId :" + mActivePointerId
+                    //                                    + "\ninitialMotionY:" + initialMotionY
+                    //                    );
 
                     if (initialMotionY == -1) {
                         return false;
@@ -111,19 +111,19 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     if (mActivePointerId == INVALID_POINTER) {
-//                        DevLogTool.getInstance(getContext()).saveLog("mActivePointerId == INVALID_POINTER");
+                        //                        DevLogTool.getInstance(getContext()).saveLog("mActivePointerId == INVALID_POINTER");
                         return false;
                     }
                     final float y = getMotionEventY(ev, mActivePointerId);
                     if (y == -1) {
-//                        DevLogTool.getInstance(getContext()).saveLog("getMotionEventY == -1");
+                        //                        DevLogTool.getInstance(getContext()).saveLog("getMotionEventY == -1");
                         return false;
                     }
                     final float yDiff = y - mInitialMotionY;
-//                    DevLogTool.getInstance(getContext()).saveLog("-----onInterceptTouchEvent MotionEvent.ACTION_MOVE"
-//                            + " y:" + y + " mInitialMotionY:" + mInitialMotionY + " yDiff:" + yDiff
-//                            + " mTouchSlop:" + mTouchSlop + " mIsBeingDragged:" + mIsBeingDragged
-//                    );
+                    //                    DevLogTool.getInstance(getContext()).saveLog("-----onInterceptTouchEvent MotionEvent.ACTION_MOVE"
+                    //                            + " y:" + y + " mInitialMotionY:" + mInitialMotionY + " yDiff:" + yDiff
+                    //                            + " mTouchSlop:" + mTouchSlop + " mIsBeingDragged:" + mIsBeingDragged
+                    //                    );
                     if (yDiff > mTouchSlop && !mIsBeingDragged) {
                         mIsBeingDragged = true;
                     }
@@ -142,19 +142,19 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
             mIsBeingDragged = false;
         }
 
-//        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
-//                "------onInterceptTouchEvent isIntercept------>" + isIntercept
-//        );
+        //        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+        //                "------onInterceptTouchEvent isIntercept------>" + isIntercept
+        //        );
         return mIsBeingDragged;
     }
 
 
     @Override
     public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
-//        DevLogTool.getInstance(getContext()).saveLog(
-//                "-----onTouchEvent mIsBeingDragged:" + mIsBeingDragged
-//                        + "\nev:" + ev
-//        );
+        //        DevLogTool.getInstance(getContext()).saveLog(
+        //                "-----onTouchEvent mIsBeingDragged:" + mIsBeingDragged
+        //                        + "\nev:" + ev
+        //        );
 
         if (!mIsBeingDragged) {
             return super.onTouchEvent(parent, child, ev);
@@ -166,7 +166,7 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
             case MotionEvent.ACTION_MOVE: {
                 final int pointerIndex = ev.findPointerIndex(mActivePointerId);
                 if (pointerIndex < 0) {
-//                    DevLogTool.getInstance(getContext()).saveLog("-----onTouchEvent MotionEvent.ACTION_MOVE: pointerIndex < 0");
+                    //                    DevLogTool.getInstance(getContext()).saveLog("-----onTouchEvent MotionEvent.ACTION_MOVE: pointerIndex < 0");
                     return false;
                 }
 
@@ -174,15 +174,15 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                 final float yDiff     = y - mInitialMotionY;
                 final float scrollTop = yDiff * DRAG_RATE;
                 mCurrentDragPercent = scrollTop / mTotalDragDistance;
-//                DevLogTool.getInstance(getContext()).saveLog(
-//                        "-----onTouchEvent MotionEvent.ACTION_MOVE"
-//                                + "\nDRAG_RATE:" + DRAG_RATE
-//                                + "\nmInitialMotionY:" + mInitialMotionY
-//                                + "\ny:" + y
-//                                + "\nyDiff:" + yDiff
-//                                + "\nscrollTop:" + scrollTop
-//                                + "\nmCurrentDragPercent:" + mCurrentDragPercent
-//                );
+                //                DevLogTool.getInstance(getContext()).saveLog(
+                //                        "-----onTouchEvent MotionEvent.ACTION_MOVE"
+                //                                + "\nDRAG_RATE:" + DRAG_RATE
+                //                                + "\nmInitialMotionY:" + mInitialMotionY
+                //                                + "\ny:" + y
+                //                                + "\nyDiff:" + yDiff
+                //                                + "\nscrollTop:" + scrollTop
+                //                                + "\nmCurrentDragPercent:" + mCurrentDragPercent
+                //                );
 
                 if (mCurrentDragPercent < 0) {
                     return false;
@@ -198,18 +198,18 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                 float extraMove = (slingshotDist) * tensionPercent / 2;
                 int   targetY   = (int) ((slingshotDist * boundedDragPercent) + extraMove);
 
-//                DevLogTool.getInstance(getContext()).saveLog(
-//                        "-----onTouchEvent MotionEvent.ACTION_MOVE"
-//                                + "\nboundedDragPercent:" + boundedDragPercent
-//                                + "\nextraOS:" + extraOS
-//                                + "\nslingshotDist:" + slingshotDist
-//                                + "\ntensionSlingshotPercent:" + tensionSlingshotPercent
-//                                + "\ntensionPercent:" + tensionPercent
-//                                + "\nslingshotDist:" + slingshotDist
-//                                + "\nextraMove:" + extraMove
-//                                + "\ntargetY:" + targetY
-//                                + "\nmCurrentOffsetTop:" + mCurrentOffsetTop
-//                );
+                //                DevLogTool.getInstance(getContext()).saveLog(
+                //                        "-----onTouchEvent MotionEvent.ACTION_MOVE"
+                //                                + "\nboundedDragPercent:" + boundedDragPercent
+                //                                + "\nextraOS:" + extraOS
+                //                                + "\nslingshotDist:" + slingshotDist
+                //                                + "\ntensionSlingshotPercent:" + tensionSlingshotPercent
+                //                                + "\ntensionPercent:" + tensionPercent
+                //                                + "\nslingshotDist:" + slingshotDist
+                //                                + "\nextraMove:" + extraMove
+                //                                + "\ntargetY:" + targetY
+                //                                + "\nmCurrentOffsetTop:" + mCurrentOffsetTop
+                //                );
                 //                mRefreshView.setPercent(mCurrentDragPercent);
                 setTargetOffsetTop(targetY - mCurrentOffsetTop);
                 break;
@@ -230,10 +230,10 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
                 final float y             = MotionEventCompat.getY(ev, pointerIndex);
                 final float overScrollTop = (y - mInitialMotionY) * DRAG_RATE;
                 mIsBeingDragged = false;
-//                DevLogTool.getInstance(getContext()).saveLog("-----onInterceptTouchEvent MotionEvent.ACTION_CANCEL"
-//                        + "\noverScrollTop:     " + overScrollTop
-//                        + "\nmTotalDragDistance:    " + mTotalDragDistance
-//                );
+                //                DevLogTool.getInstance(getContext()).saveLog("-----onInterceptTouchEvent MotionEvent.ACTION_CANCEL"
+                //                        + "\noverScrollTop:     " + overScrollTop
+                //                        + "\nmTotalDragDistance:    " + mTotalDragDistance
+                //                );
                 if (overScrollTop > mTotalDragDistance) {
                     setRefreshing(true, true);
                     if (mRefreshView != null) {
@@ -276,10 +276,10 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
     }
 
     private void setRefreshing(boolean refreshing, final boolean notify) {
-//        DevLogTool.getInstance(getContext()).saveLog("-----setRefreshing"
-//                + " refreshing: " + refreshing
-//                + " notify: " + notify
-//        );
+        //        DevLogTool.getInstance(getContext()).saveLog("-----setRefreshing"
+        //                + " refreshing: " + refreshing
+        //                + " notify: " + notify
+        //        );
         if (mRefreshing != refreshing) {
             mNotify = notify;
             //            ensureTarget();
@@ -384,17 +384,19 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
         //        mRefreshImageView.startAnimation(mAnimateToCorrectPosition);
 
         if (mRefreshing) {
-//            mRefreshView.start();
+            //            mRefreshView.start();
             if (mNotify) {
-//                if (mListener != null) {
-//                    mListener.onRefresh();
-//                }
+                //                if (mListener != null) {
+                //                    mListener.onRefresh();
+                //                }
             }
         } else {
-//            mRefreshView.stop();
+            //            mRefreshView.stop();
             animateOffsetToPosition(mAnimateToStartPosition);
         }
-        mCurrentOffsetTop = mTarget.getTop();
+        if (mTarget != null) {
+            mCurrentOffsetTop = mTarget.getTop();
+        }
     }
 
     private final Animation mAnimateToCorrectPosition = new Animation() {
@@ -403,10 +405,14 @@ public class RefreshViewBehavior2<V extends View> extends HeaderBehavior<V> {
             int targetTop;
             int endTarget = mTotalDragDistance;
             targetTop = (mFrom + (int) ((endTarget - mFrom) * interpolatedTime));
-            int offset = targetTop - mTarget.getTop();
+            int offset = targetTop;
+            if (mTarget != null) {
+                offset = targetTop - mTarget.getTop();
+            }
+
 
             mCurrentDragPercent = mFromDragPercent - (mFromDragPercent - 1.0f) * interpolatedTime;
-//            mRefreshView.setPercent(mCurrentDragPercent);
+            //            mRefreshView.setPercent(mCurrentDragPercent);
 
             setTargetOffsetTop(offset);
         }
