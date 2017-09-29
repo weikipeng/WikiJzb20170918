@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.eduu.bang.R;
 
@@ -36,7 +37,12 @@ public class WebViewBehavior<V extends View> extends CoordinatorLayout.Behavior<
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, V child, View dependency) {
         //        return super.onDependentViewChanged(parent, child, dependency);
-        child.setY(dependency.getY() + dependency.getHeight());
+//        child.setY(dependency.getY() + dependency.getHeight());
+//        child.offsetTopAndBottom((int) (dependency.getY() + dependency.getHeight()));
+        ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+        if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+            ((ViewGroup.MarginLayoutParams) layoutParams).topMargin = (int) (dependency.getY() + dependency.getHeight());
+        }
         return true;
     }
 

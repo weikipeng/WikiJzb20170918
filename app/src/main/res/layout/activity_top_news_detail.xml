@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <com.jzb.android.ui.topnews.NestedWebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
@@ -28,8 +26,9 @@
             android:id="@+id/refreshView"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="-40dp"
             android:background="#66FF0000"
-            app:layout_behavior="com.jzb.android.ui.topnews.RefreshViewBehavior">
+            app:layout_behavior="com.jzb.android.widget.RefreshViewBehavior2">
             <!--android:layout_marginTop="-40dp"-->
 
             <TextView
@@ -39,15 +38,15 @@
         </LinearLayout>
 
         <!--<LinearLayout-->
-            <!--android:id="@+id/loadMoreView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:background="#6600FF00">-->
+        <!--android:id="@+id/loadMoreView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:background="#6600FF00">-->
 
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:text="上拉加载更多"/>-->
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="上拉加载更多"/>-->
         <!--</LinearLayout>-->
     </android.support.design.widget.CoordinatorLayout>
 

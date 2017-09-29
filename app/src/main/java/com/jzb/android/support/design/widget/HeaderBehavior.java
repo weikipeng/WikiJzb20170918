@@ -28,6 +28,9 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import com.eduu.bang.BangApplication;
+import com.weiauto.develop.tool.DevLogTool;
+
 
 /**
  * The {@link CoordinatorLayout.Behavior} for a view that sits vertically above scrolling a view.
@@ -51,10 +54,17 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
 
     public HeaderBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
+
     }
 
     @Override
     public boolean onInterceptTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+                " onInterceptTouchEvent coordinatorLayout:" + parent
+                        + "\nchild:" + child
+                        + "\nev:" + ev.toString()
+        );
+
         if (mTouchSlop < 0) {
             mTouchSlop = ViewConfiguration.get(parent.getContext()).getScaledTouchSlop();
         }
@@ -120,6 +130,11 @@ public abstract class HeaderBehavior<V extends View> extends ViewOffsetBehavior<
 
     @Override
     public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+        DevLogTool.getInstance(BangApplication.getInstance()).saveLog(
+                " onTouchEvent------ coordinatorLayout:" + parent
+                        + "\nchild:" + child
+                        + "\nev:" + ev.toString()
+        );
         if (mTouchSlop < 0) {
             mTouchSlop = ViewConfiguration.get(parent.getContext()).getScaledTouchSlop();
         }
