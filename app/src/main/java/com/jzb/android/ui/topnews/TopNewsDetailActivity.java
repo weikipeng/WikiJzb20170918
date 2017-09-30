@@ -42,7 +42,7 @@ public class TopNewsDetailActivity extends AppCompatActivity {
         mWebView = findViewById(R.id.webView);
         mRefreshView = findViewById(R.id.refreshView);
         //        mLoadMoreView = findViewById(R.id.loadMoreView);
-//        initRecyclerView();
+        initRecyclerView();
     }
 
     protected void initRecyclerView() {

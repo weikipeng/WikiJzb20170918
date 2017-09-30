@@ -43,7 +43,7 @@ public class WebViewBehavior<V extends View> extends CoordinatorLayout.Behavior<
         if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
             ((ViewGroup.MarginLayoutParams) layoutParams).topMargin = (int) (dependency.getY() + dependency.getHeight());
         }
-        return true;
+        return false;
     }
 
     @Override
