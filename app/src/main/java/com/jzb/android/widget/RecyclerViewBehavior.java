@@ -39,12 +39,17 @@ public class RecyclerViewBehavior<V extends View> extends BaseBehavior<V> {
         ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
         if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
             int topMargin = (int) (dependency.getY() + dependency.getHeight());
-            ((ViewGroup.MarginLayoutParams) layoutParams).topMargin = topMargin;
+            if (((ViewGroup.MarginLayoutParams) layoutParams).topMargin != topMargin) {
+                ((ViewGroup.MarginLayoutParams) layoutParams).topMargin = topMargin;
+                child.requestLayout();
+            }
 
             DevLogTool.getInstance(getContext()).saveLog("-----onDependentViewChanged "
+                    + "\ndependency:     " + dependency
                     + "\ntopMargin:     " + topMargin
             );
         }
+//        parent.updateViewLayout(child,layoutParams);
         return true;
     }
 }
