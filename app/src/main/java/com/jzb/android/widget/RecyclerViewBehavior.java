@@ -6,13 +6,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jzb.android.support.design.widget.ScrollingViewBehavior;
+import com.jzb.android.support.design.widget.BaseBehavior;
 import com.weiauto.develop.tool.DevLogTool;
 
 /**
  * Created by wikipeng on 2017/9/29.
  */
-public class RecyclerViewBehavior extends ScrollingViewBehavior {
+public class RecyclerViewBehavior extends BaseBehavior {
 
     public RecyclerViewBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
