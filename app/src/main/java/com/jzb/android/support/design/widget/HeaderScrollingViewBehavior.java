@@ -35,7 +35,7 @@ import java.util.List;
  * The {@link CoordinatorLayout.Behavior} for a scrolling view that is positioned vertically below another view.
  * See {@link android.support.design.widget.HeaderBehavior}.
  */
-abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
+public abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
 
     final Rect mTempRect1 = new Rect();
     final Rect mTempRect2 = new Rect();
@@ -119,7 +119,7 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
             try {
                 Method getLastWindowInsets = CoordinatorLayout.class.getMethod("getLastWindowInsets", new Class[]{});
                 getLastWindowInsets.setAccessible(true);
-                invoke              = getLastWindowInsets.invoke(parent, null);
+                invoke = getLastWindowInsets.invoke(parent, new Object[]{});
                 //                parent.getLastWindowInsets();
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
@@ -168,7 +168,7 @@ abstract class HeaderScrollingViewBehavior extends ViewOffsetBehavior<View> {
         return gravity == Gravity.NO_GRAVITY ? GravityCompat.START | Gravity.TOP : gravity;
     }
 
-    abstract View findFirstDependency(List<View> views);
+    public abstract View findFirstDependency(List<View> views);
 
     int getScrollRange(View v) {
         return v.getMeasuredHeight();

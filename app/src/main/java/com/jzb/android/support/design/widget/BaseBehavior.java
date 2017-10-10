@@ -1,12 +1,15 @@
 package com.jzb.android.support.design.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+
+import com.eduu.bang.R;
 
 /**
  * Created by wikipeng on 2017/9/29.
@@ -31,6 +34,11 @@ public class BaseBehavior<V extends View> extends CoordinatorLayout.Behavior<V> 
      */
     protected int mActivePointerId;
 
+    ///////////////////////////////////////////////////////////////////////////
+    //
+    ///////////////////////////////////////////////////////////////////////////
+    private int targetId;
+
 
     public BaseBehavior() {
         super();
@@ -39,12 +47,27 @@ public class BaseBehavior<V extends View> extends CoordinatorLayout.Behavior<V> 
     public BaseBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Follow);
+        for (int i = 0; i < a.getIndexCount(); i++) {
+            int attr = a.getIndex(i);
+            if (a.getIndex(i) == R.styleable.Follow_target) {
+                targetId = a.getResourceId(attr, -1);
+            }
+        }
+        a.recycle();
         init(context);
     }
 
     protected void init(Context context) {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
+
+    @Override
+    public boolean layoutDependsOn(CoordinatorLayout parent, V child, View dependency) {
+        return dependency.getId() == targetId;
+    }
+
 
     protected Context getContext() {
         return mContext;

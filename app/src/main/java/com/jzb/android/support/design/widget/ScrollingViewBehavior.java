@@ -32,17 +32,10 @@ public class ScrollingViewBehavior extends HeaderScrollingViewBehavior {
     }
 
     @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
-        // We depend on any AppBarLayouts
-        return dependency instanceof AppBarLayout;
-    }
-
-//    @Override
-//    public boolean onDependentViewChanged(CoordinatorLayout parent, View child,
-//                                          View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, View child, View dependency) {
 //        offsetChildAsNeeded(parent, child, dependency);
-//        return false;
-//    }
+        return false;
+    }
 
     @Override
     public boolean onRequestChildRectangleOnScreen(CoordinatorLayout parent, View child,
@@ -65,53 +58,53 @@ public class ScrollingViewBehavior extends HeaderScrollingViewBehavior {
         return false;
     }
 
-//    private void offsetChildAsNeeded(CoordinatorLayout parent, View child, View dependency) {
-//        final CoordinatorLayout.Behavior behavior =
-//                ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
-//        if (behavior instanceof AppBarLayout.Behavior) {
-//            // Offset the child, pinning it to the bottom the header-dependency, maintaining
-//            // any vertical gap and overlap
-//            final AppBarLayout.Behavior ablBehavior = (AppBarLayout.Behavior) behavior;
-//            ViewCompat.offsetTopAndBottom(child, (dependency.getBottom() - child.getTop())
-//                    + ablBehavior.mOffsetDelta
-//                    + getVerticalLayoutGap()
-//                    - getOverlapPixelsForOffset(dependency));
-//        }
-//    }
+    //    private void offsetChildAsNeeded(CoordinatorLayout parent, View child, View dependency) {
+    //        final CoordinatorLayout.Behavior behavior =
+    //                ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior();
+    //        if (behavior instanceof AppBarLayout.Behavior) {
+    //            // Offset the child, pinning it to the bottom the header-dependency, maintaining
+    //            // any vertical gap and overlap
+    //            final AppBarLayout.Behavior ablBehavior = (AppBarLayout.Behavior) behavior;
+    //            ViewCompat.offsetTopAndBottom(child, (dependency.getBottom() - child.getTop())
+    //                    + ablBehavior.mOffsetDelta
+    //                    + getVerticalLayoutGap()
+    //                    - getOverlapPixelsForOffset(dependency));
+    //        }
+    //    }
 
-//    @Override
-//    float getOverlapRatioForOffset(final View header) {
-//        if (header instanceof AppBarLayout) {
-//            final AppBarLayout abl              = (AppBarLayout) header;
-//            final int          totalScrollRange = abl.getTotalScrollRange();
-//            final int          preScrollDown    = abl.getDownNestedPreScrollRange();
-//            final int          offset           = getAppBarLayoutOffset(abl);
-//
-//            if (preScrollDown != 0 && (totalScrollRange + offset) <= preScrollDown) {
-//                // If we're in a pre-scroll down. Don't use the offset at all.
-//                return 0;
-//            } else {
-//                final int availScrollRange = totalScrollRange - preScrollDown;
-//                if (availScrollRange != 0) {
-//                    // Else we'll use a interpolated ratio of the overlap, depending on offset
-//                    return 1f + (offset / (float) availScrollRange);
-//                }
-//            }
-//        }
-//        return 0f;
-//    }
+    //    @Override
+    //    float getOverlapRatioForOffset(final View header) {
+    //        if (header instanceof AppBarLayout) {
+    //            final AppBarLayout abl              = (AppBarLayout) header;
+    //            final int          totalScrollRange = abl.getTotalScrollRange();
+    //            final int          preScrollDown    = abl.getDownNestedPreScrollRange();
+    //            final int          offset           = getAppBarLayoutOffset(abl);
+    //
+    //            if (preScrollDown != 0 && (totalScrollRange + offset) <= preScrollDown) {
+    //                // If we're in a pre-scroll down. Don't use the offset at all.
+    //                return 0;
+    //            } else {
+    //                final int availScrollRange = totalScrollRange - preScrollDown;
+    //                if (availScrollRange != 0) {
+    //                    // Else we'll use a interpolated ratio of the overlap, depending on offset
+    //                    return 1f + (offset / (float) availScrollRange);
+    //                }
+    //            }
+    //        }
+    //        return 0f;
+    //    }
 
-//    private static int getAppBarLayoutOffset(AppBarLayout abl) {
-//        final CoordinatorLayout.Behavior behavior =
-//                ((CoordinatorLayout.LayoutParams) abl.getLayoutParams()).getBehavior();
-//        if (behavior instanceof AppBarLayout.Behavior) {
-//            return ((AppBarLayout.Behavior) behavior).getTopBottomOffsetForScrollingSibling();
-//        }
-//        return 0;
-//    }
+    //    private static int getAppBarLayoutOffset(AppBarLayout abl) {
+    //        final CoordinatorLayout.Behavior behavior =
+    //                ((CoordinatorLayout.LayoutParams) abl.getLayoutParams()).getBehavior();
+    //        if (behavior instanceof AppBarLayout.Behavior) {
+    //            return ((AppBarLayout.Behavior) behavior).getTopBottomOffsetForScrollingSibling();
+    //        }
+    //        return 0;
+    //    }
 
     @Override
-    AppBarLayout findFirstDependency(List<View> views) {
+    public AppBarLayout findFirstDependency(List<View> views) {
         for (int i = 0, z = views.size(); i < z; i++) {
             View view = views.get(i);
             if (view instanceof AppBarLayout) {
